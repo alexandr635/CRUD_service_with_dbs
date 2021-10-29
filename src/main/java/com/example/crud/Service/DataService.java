@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Service
@@ -25,7 +29,7 @@ public class DataService implements IDataService {
     @Async
     public UUID Create(Data data) {
         data.id = UUID.randomUUID();
-        data.time = (int) System.currentTimeMillis();
+        data.time = new Timestamp(System.currentTimeMillis());
         var id = iRepository.insert(data);
 
         return id;
@@ -46,6 +50,7 @@ public class DataService implements IDataService {
         if (currentData == null)
             throw new ChangeSetPersister.NotFoundException();
 
+        newData.time = new Timestamp(System.currentTimeMillis());
         return iRepository.update(newData);
     }
 

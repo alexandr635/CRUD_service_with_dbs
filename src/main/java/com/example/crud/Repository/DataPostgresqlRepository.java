@@ -32,14 +32,14 @@ public class DataPostgresqlRepository implements IRepository {
 
     public Data get(UUID id) {
         try {
-            String query = "SELECT * FROM testdata where id = " + id;
+            String query = "SELECT * FROM testdata where id = '" + id + "'";
             var result = statement.executeQuery(query);
             result.next();
 
             Data dataObj = new Data();
             dataObj.id = UUID.fromString(result.getString("id"));
             dataObj.data = result.getString("data");
-            dataObj.time = result.getInt("timeInMilliseconds");
+            dataObj.time = result.getTimestamp("time");
 
             return dataObj;
 
@@ -53,7 +53,7 @@ public class DataPostgresqlRepository implements IRepository {
     public UUID insert(Data data){
         try{
             String query = "INSERT INTO testdata(id, data, time) " +
-                    "VALUES(" + data.id + ", '" + data.data + "', " + data.time + ")";
+                    "VALUES('" + data.id + "', '" + data.data + "', '" + data.time + "')";
             statement.executeUpdate(query);
             return data.id;
         }catch (Exception ex){
@@ -67,8 +67,8 @@ public class DataPostgresqlRepository implements IRepository {
         try{
             String query = "UPDATE testdata SET " +
                     "data = '" + data.data + "'," +
-                    "time = " + data.time +
-                    "WHERE id = " + data.id;
+                    "time = '" + data.time +
+                    "' WHERE id = '" + data.id + "'";
             statement.executeUpdate(query);
             return data;
         }catch (Exception ex){
@@ -80,7 +80,7 @@ public class DataPostgresqlRepository implements IRepository {
 
     public UUID delete(UUID id){
         try{
-            String query = "DELETE FROM testdata WHERE id = " + id;
+            String query = "DELETE FROM testdata WHERE id = '" + id + "'";
             statement.executeUpdate(query);
             return id;
         }catch (Exception ex){
