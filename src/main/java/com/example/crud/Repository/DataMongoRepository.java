@@ -3,7 +3,6 @@ package com.example.crud.Repository;
 import com.example.crud.Model.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
 @Component("mongoRepo")
@@ -17,7 +16,7 @@ public class DataMongoRepository implements IRepository {
 
     @Override
     public UUID insert(Data data) {
-        iMongoRepository.save(data);
+        var t = iMongoRepository.save(data);
         return data.id;
     }
 

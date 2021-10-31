@@ -3,13 +3,9 @@ package com.example.crud.Service;
 import com.example.crud.Model.Data;
 import com.example.crud.Repository.IRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -19,8 +15,7 @@ public class DataService implements IDataService {
 
     @Autowired
     public DataService(
-            //@Qualifier("mongoRepo") IRepository iRepository //connect to mongo
-            @Qualifier("postgreRepo") IRepository iRepository //connect to postgresql
+            IRepository iRepository
     ){
         this.iRepository = iRepository;
     }
