@@ -11,12 +11,13 @@ jobs:
       
     steps:
       - name: run mongo container
-        run: docker run -d --net host -e MONGO_INITDB_ROOT_USERNAME=staging_area -e MONGO_INITDB_ROOT_PASSWORD=staging_area -e MONGO_INITDB_DATABASE=staging_area mongo mongod          
+        run: docker run -d --net host mongo mongod          
           
       - name: clone this repo
         uses: actions/checkout@v2
         with:
           path: ${{ env.CRUD_DIR }}
+          ref: mongoBranch
           
       - name: build crud-service
         working-directory: ${{ env.CRUD_DIR }}
@@ -30,9 +31,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: alexandr635/test_CRUD_serviice_with_dbs
-          path: ${{ TEST_DIR }}
+          path: ${{ env.TEST_DIR }}
           
       - name: run tests
-        working-directory: ${{ TEST_DIR }}
+        working-directory: ${{ env.TEST_DIR }}
         run: docker run --net host -v $(pwd):/test -w /test maven:adoptopenjdk mvn clean
       
