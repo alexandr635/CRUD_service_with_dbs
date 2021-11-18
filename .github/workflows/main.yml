@@ -25,7 +25,7 @@ jobs:
           
       - name: run crud-service inside docker container
         working-directory: ${{ env.CRUD_DIR }}
-        run: docker run -d --net host -v $(pwd):/crud -w /crud maven:adoptopenjdk java -jar target/staging-area-crud-0.0.1-SNAPSHOT.jar
+        run: docker run --net host -v $(pwd):/crud -w /crud maven:adoptopenjdk java -jar target/crud-0.0.1-SNAPSHOT.jar
           
       - name: clone repo with tests
         uses: actions/checkout@v2
