@@ -30,7 +30,7 @@ jobs:
       - name: clone repo with tests
         uses: actions/checkout@v2
         with:
-          repository: alexandr635/test_CRUD_serviice
+          repository: alexandr635/test_CRUD_service
           path: ${{ env.TEST_DIR }}
           
       - name: run tests
