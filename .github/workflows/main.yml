@@ -30,10 +30,10 @@ jobs:
       - name: clone repo with tests
         uses: actions/checkout@v2
         with:
-          repository: alexandr635/test_CRUD_serviice_with_dbs
+          repository: alexandr635/test_CRUD_serviice
           path: ${{ env.TEST_DIR }}
           
       - name: run tests
         working-directory: ${{ env.TEST_DIR }}
-        run: docker run --net host -v $(pwd):/test -w /test maven:adoptopenjdk mvn clean
+        run: docker run --net host -v $(pwd):/test -w /test maven:adoptopenjdk mvn clean test
       
